@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electricity Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+  <div class="controls">
+    <label for="month-select">Select month:</label>
+    <select id="month-select">
+      <option value="December">December</option>
+      <option value="July">July</option>
+    </select>
+
+    <label for="chart-select">Select visual:</label>
+    <select id="chart-select">
+      <option value="line">Average Daily Pool Price Over Time</option>
+      <option value="scatter">Price Vs Reserve Margin</option>
+      <option value="heatmap">Daily Electricity Price Patterns</option>
+    </select>
+
+   <label for="hourFilter" id="hour-label" style="display:none;">Select hour:</label>
+   <select id="hourFilter" multiple size="8" style="display:none;"></select>
+  </div>
+
+  <div id="chart-area">
+    <div id="line-chart" class="chart-view active"></div>
+    <div id="scatter-chart" class="chart-view"></div>
+    <div id="heatmap-chart" class="chart-view"></div>
+  </div>
+  <div id="tooltip" class="tooltip"></div>
+  
+  <script src="scatter-chart.js"></script>
+  <script src="heatmap.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
