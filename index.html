@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electricity Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+  <div class="intro">
+    <div class="intro-title">Alberta Electricity Market</div>
+    <div class="intro-body">
+      Hourly pool price, reserve margin, and Lerner index data from Alberta's deregulated electricity market,
+      comparing <strong>December</strong> (winter peak season) and <strong>July</strong> (summer peak season).
+      All three charts display both months simultaneously so seasonal differences are directly visible.
+      Use the dropdown to switch views; on the scatter chart the hour slider filters to a single hour of day.
+    </div>
+  </div>
+
+  <div class="controls">
+    <label for="month-select">Select month:</label>
+    <select id="month-select">
+      <option value="December">December</option>
+      <option value="July">July</option>
+    </select>
+
+    <label for="chart-select">Select visual:</label>
+    <select id="chart-select">
+      <option value="overview">Overview — All Charts</option>
+      <option value="line">Average Daily Pool Price Over Time</option>
+      <option value="scatter">Price Vs Reserve Margin</option>
+      <option value="heatmap">Daily Electricity Price Patterns</option>
+    </select>
+
+  </div>
+
+  <div id="overview-kpi"></div>
+
+  <div id="chart-area">
+    <div id="line-chart" class="chart-view active"></div>
+    <div id="scatter-chart" class="chart-view">
+      <div class="scatter-slider-bar">
+        <label id="hour-label">Hour: <span id="hour-display">All</span></label>
+        <input type="range" id="hourFilter" min="0" max="24" step="1" value="0">
+      </div>
+    </div>
+    <div id="heatmap-chart" class="chart-view"></div>
+  </div>
+  <div id="tooltip" class="tooltip"></div>
+  
+  <script src="scatter-chart.js"></script>
+  <script src="heatmap.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
