@@ -110,7 +110,7 @@ function drawHeatmap(data, highlightHour = null) {
   // ── X axis ─────────────────────────────────────────────────────────────────
   g.append("g")
     .attr("transform", `translate(0,${innerHeight})`)
-    .call(d3.axisBottom(x).tickValues(d3.range(24)))
+    .call(d3.axisBottom(x).tickValues(d3.range(1, 25)))
     .call(a => a.select(".domain").remove())
     .call(a => a.selectAll(".tick line").attr("stroke", "#cbd5e1"))
     .call(a => a.selectAll(".tick text")
@@ -160,7 +160,7 @@ function drawHeatmap(data, highlightHour = null) {
   const LEG_W = 200;
   const LEG_H = 12;
   const legX  = innerWidth - LEG_W;
-  const legY  = innerHeight + 22;
+  const legY  = innerHeight + 42;
 
   // Card shadow filter
   defs.append("filter").attr("id", "heat-card-shadow")
