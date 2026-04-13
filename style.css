@@ -1,21 +1,29 @@
 .intro {
-  padding: 16px 28px 14px;
+  padding: 10px 28px;
   background: #1e293b;
   font-family: Inter, system-ui, sans-serif;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .intro-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #f8fafc;
-  margin-bottom: 5px;
   letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.intro-sep {
+  color: #475569;
+  font-size: 16px;
 }
 
 .intro-body {
   font-size: 13.5px;
-  line-height: 1.65;
-  max-width: 960px;
+  line-height: 1.5;
   color: #94a3b8;
 }
 
@@ -182,7 +190,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  height: calc(100vh - 250px); /* remaining viewport after intro + controls + KPI bar */
+  height: calc(100vh - 210px); /* remaining viewport after intro + controls + KPI bar */
   box-sizing: border-box;
 }
 

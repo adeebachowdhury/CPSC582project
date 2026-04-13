@@ -44,21 +44,18 @@ function drawReserveMarginScatter(data) {
   svg.append("text")
     .attr("x", cx).attr("y", 28)
     .attr("text-anchor", "middle")
-    .attr("font-size", "28px").attr("font-weight", "700")
+    .attr("font-size", "20px").attr("font-weight", "700")
     .attr("fill", "#1e293b").attr("font-family", "Inter, system-ui, sans-serif")
     .text("Reserve Margin vs Pool Price");
 
   // ── Subtitle ───────────────────────────────────────────────────────────────
   const subtitleStyle = sel => sel
     .attr("x", cx).attr("text-anchor", "middle")
-    .attr("font-size", "11px").attr("fill", "#64748b")
+    .attr("font-size", "13px").attr("fill", "#64748b")
     .attr("font-family", "Inter, system-ui, sans-serif");
 
-  svg.append("text").call(subtitleStyle).attr("y", 52)
-    .text("This chart explains why price spikes occur by illustrating the relationship between reserve margin and price. An inverse relationship emerges, where lower reserve margins—indicating tighter");
-
-  svg.append("text").call(subtitleStyle).attr("y", 67)
-    .text("supply conditions—are associated with significantly higher prices, particularly in July. This demonstrates that extreme price events are driven by scarcity rather than randomness.");
+  svg.append("text").call(subtitleStyle).attr("y", 58)
+    .text("An inverse relationship emerges: lower reserve margins drive significantly higher prices, particularly in July — extreme price events are caused by scarcity, not randomness.");
 
   // ── Parse ──────────────────────────────────────────────────────────────────
   const parsed = data.map(d => {
@@ -163,7 +160,7 @@ function drawReserveMarginScatter(data) {
     panel.append("text")
       .attr("x", panelWidth / 2).attr("y", -10)
       .attr("text-anchor", "middle")
-      .attr("font-size", "18px").attr("font-weight", "700")
+      .attr("font-size", "20px").attr("font-weight", "700")
       .attr("fill", "#1e293b").attr("font-family", "Inter, system-ui, sans-serif")
       .attr("letter-spacing", "0.3")
       .text(label);
@@ -280,10 +277,11 @@ function drawReserveMarginScatter(data) {
       .attr("font-size", "11px").attr("fill", "#D55E00").attr("font-weight", "700")
       .attr("font-family", "Inter, system-ui, sans-serif")
       .text(r2Text);
+
   }
 
-  drawPanel(decData, 0,                    "December", yDec);
-  drawPanel(julData, panelWidth + panelGap, "July",     yJul);
+  drawPanel(julData, 0,                    "July",     yJul);
+  drawPanel(decData, panelWidth + panelGap, "December", yDec);
 
   // ── Cross-chart sync handlers ─────────────────────────────────────────────
   const fmtDay = d3.timeFormat("%Y-%m-%d");
@@ -300,9 +298,9 @@ function drawReserveMarginScatter(data) {
 
   // ── Axis labels ────────────────────────────────────────────────────────────
   g.append("text")
-    .attr("x", innerWidth / 2).attr("y", innerHeight + 40)
+    .attr("x", innerWidth / 2).attr("y", innerHeight + 30)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569")
+    .attr("font-size", "12px").attr("font-weight", "600").attr("fill", "#475569")
     .attr("font-family", "Inter, system-ui, sans-serif")
     .text("Reserve Margin");
 
@@ -310,19 +308,36 @@ function drawReserveMarginScatter(data) {
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2).attr("y", -60)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569")
+    .attr("font-size", "16px").attr("font-weight", "600").attr("fill", "#475569")
     .attr("font-family", "Inter, system-ui, sans-serif")
     .text("Pool Price ($/MWh)");
 
   // ── Legend card ────────────────────────────────────────────────────────────
   const LERNER_W  = 190;
-  const CARD_PAD  = 14;
-  const REG_W     = 130;
-  const COL_GAP   = 20;
+  const CARD_PAD  = 12;
+  const REG_W     = 122;
+  const COL_GAP   = 14;
   const CARD_W    = REG_W + COL_GAP + LERNER_W + CARD_PAD * 2;
   const CARD_H    = 60;
   const cardX     = innerWidth - CARD_W;
   const cardY     = -90;
+
+  // ── Lerner annotation — single note outside panels ────────────────────────
+  const annNoteX = 0;
+  const annNoteY = cardY + 8;
+
+  // Swatch
+  g.append("rect")
+    .attr("x", annNoteX).attr("y", annNoteY)
+    .attr("width", 12).attr("height", 12).attr("rx", 2)
+    .attr("fill", color(lernerExtent[1]));
+
+  g.append("text")
+    .attr("x", annNoteX + 18).attr("y", annNoteY + 9)
+    .attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#1e293b")
+    .attr("font-family", "Inter, system-ui, sans-serif")
+    .attr("dominant-baseline", "middle")
+    .text("Darker dot = higher Lerner index = more market power");
 
   // Card shadow filter
   const cardShadow = defs.append("filter").attr("id", "card-shadow")
@@ -391,6 +406,21 @@ function drawReserveMarginScatter(data) {
     .attr("width", LERNER_W).attr("height", 12)
     .attr("fill", "url(#lerner-gradient)")
     .attr("rx", 3);
+
+  // LOW / HIGH end labels overlaid on the gradient bar
+  g.append("text")
+    .attr("x", lernerX + 5).attr("y", ROW2 + 1)
+    .attr("font-size", "8px").attr("font-weight", "700").attr("fill", "#ffffff")
+    .attr("font-family", "Inter, system-ui, sans-serif")
+    .attr("dominant-baseline", "middle")
+    .text("LOW");
+
+  g.append("text")
+    .attr("x", lernerX + LERNER_W - 5).attr("y", ROW2 + 1)
+    .attr("font-size", "8px").attr("font-weight", "700").attr("fill", "#ffffff")
+    .attr("font-family", "Inter, system-ui, sans-serif")
+    .attr("text-anchor", "end").attr("dominant-baseline", "middle")
+    .text("HIGH");
 
   const lernerScale = d3.scaleLinear().domain(lernerExtent).range([0, LERNER_W]);
   const lernerTicks = d3.range(4).map(i =>

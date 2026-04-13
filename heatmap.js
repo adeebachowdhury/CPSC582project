@@ -132,34 +132,28 @@ function drawHeatmap(data, highlightHour = null) {
   g.append("text")
     .attr("x", innerWidth / 2).attr("y", -50)
     .attr("text-anchor", "middle")
-    .attr("font-size", "22px").attr("font-weight", "700")
+    .attr("font-size", "20px").attr("font-weight", "700")
     .attr("fill", "#1e293b").attr("font-family", FONT)
     .text("Average Electricity Demand by Hour and Day");
 
   g.append("text")
-    .attr("x", innerWidth / 2).attr("y", -30)
+    .attr("x", innerWidth / 2).attr("y", -22)
     .attr("text-anchor", "middle")
-    .attr("font-size", "11px").attr("fill", "#64748b").attr("font-family", FONT)
-    .text("Average electricity demand (MW) by hour of the day and day of the week. Reveals recurring load patterns across the week,");
-
-  g.append("text")
-    .attr("x", innerWidth / 2).attr("y", -16)
-    .attr("text-anchor", "middle")
-    .attr("font-size", "11px").attr("fill", "#64748b").attr("font-family", FONT)
-    .text("showing when system stress is highest and identifying consistent peak-demand periods.");
+    .attr("font-size", "13px").attr("fill", "#64748b").attr("font-family", FONT)
+    .text("Average electricity demand (MW) by hour and day of the week — reveals recurring load patterns and identifies consistent peak-demand periods.");
 
   // ── Axis labels ────────────────────────────────────────────────────────────
   g.append("text")
     .attr("x", innerWidth / 2).attr("y", innerHeight + 48)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
+    .attr("font-size", "16px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
     .text("Hour of Day (1 = 00:00–01:00, 24 = 23:00–24:00)");
 
   g.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2).attr("y", -85)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
+    .attr("font-size", "16px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
     .text("Day of Week");
 
   // ── Legend card ────────────────────────────────────────────────────────────

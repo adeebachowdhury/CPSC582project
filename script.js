@@ -37,9 +37,24 @@ d3.csv("data.csv").then(data => {
   const hourSlider = document.getElementById("hourFilter");
   const hourDisplay = document.getElementById("hour-display");
 
+  const hourSliderHeatmap = document.getElementById("hourFilterHeatmap");
+  const hourDisplayHeatmap = document.getElementById("hour-display-heatmap");
+
+  function syncSliders(v) {
+    hourSlider.value = v;
+    hourSliderHeatmap.value = v;
+    const label = v === 0 ? "All" : `${String(v).padStart(2, "0")}:00`;
+    hourDisplay.textContent = label;
+    hourDisplayHeatmap.textContent = label;
+  }
+
   hourSlider.addEventListener("input", () => {
-    const v = +hourSlider.value;
-    hourDisplay.textContent = v === 0 ? "All" : `${String(v).padStart(2, "0")}:00`;
+    syncSliders(+hourSlider.value);
+    updateDashboard();
+  });
+
+  hourSliderHeatmap.addEventListener("input", () => {
+    syncSliders(+hourSliderHeatmap.value);
     updateDashboard();
   });
 
@@ -124,8 +139,8 @@ function showSelectedChart(selectedChart) {
 function clearAllCharts() {
   dashSync.clearAll();
   d3.select("#line-chart").html("");
-  d3.select("#scatter-chart").selectAll("svg").remove(); // preserve slider bar
-  d3.select("#heatmap-chart").html("");
+  d3.select("#scatter-chart").selectAll("svg").remove();  // preserve slider bar
+  d3.select("#heatmap-chart").selectAll("svg").remove();  // preserve slider bar
 }
 
 function makeSVG(containerSelector, width = 900, height = 400) {
@@ -330,35 +345,29 @@ function drawLineChart(data) {
   g.append("text")
     .attr("x", innerWidth / 2).attr("y", -52)
     .attr("text-anchor", "middle")
-    .attr("font-size", "22px").attr("font-weight", "700")
+    .attr("font-size", "20px").attr("font-weight", "700")
     .attr("fill", "#1e293b").attr("font-family", FONT)
     .text("Average Daily Pool Price Over Time");
 
   // Subtitle
   g.append("text")
-    .attr("x", innerWidth / 2).attr("y", -32)
+    .attr("x", innerWidth / 2).attr("y", -24)
     .attr("text-anchor", "middle")
-    .attr("font-size", "11px").attr("fill", "#64748b").attr("font-family", FONT)
-    .text("This chart highlights when price spikes occur over time, showing that electricity prices remain stable for most hours but occasionally experience sharp, short-lived increases.");
-
-  g.append("text")
-    .attr("x", innerWidth / 2).attr("y", -18)
-    .attr("text-anchor", "middle")
-    .attr("font-size", "11px").attr("fill", "#64748b").attr("font-family", FONT)
-    .text("These spikes are not random—they tend to cluster during specific periods, indicating moments of system stress rather than continuous volatility.");
+    .attr("font-size", "13px").attr("fill", "#64748b").attr("font-family", FONT)
+    .text("Electricity prices remain stable for most hours but occasionally spike sharply—these spikes cluster during specific periods of system stress, not at random.");
 
   // Axis labels
   g.append("text")
     .attr("x", innerWidth / 2).attr("y", innerHeight + 45)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
+    .attr("font-size", "16px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
     .text("Date");
 
   g.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -innerHeight / 2).attr("y", -65)
     .attr("text-anchor", "middle")
-    .attr("font-size", "14px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
+    .attr("font-size", "16px").attr("font-weight", "600").attr("fill", "#475569").attr("font-family", FONT)
     .text("Average Pool Price ($/MWh)");
 
   // P95 annotation

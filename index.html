@@ -10,13 +10,9 @@
 <body>
 
   <div class="intro">
-    <div class="intro-title">Alberta Electricity Market</div>
-    <div class="intro-body">
-      Hourly pool price, reserve margin, and Lerner index data from Alberta's deregulated electricity market,
-      comparing <strong>December</strong> (winter peak season) and <strong>July</strong> (summer peak season).
-      All three charts display both months simultaneously so seasonal differences are directly visible.
-      Use the dropdown to switch views; on the scatter chart the hour slider filters to a single hour of day.
-    </div>
+    <span class="intro-title">Alberta Electricity Market</span>
+    <span class="intro-sep">—</span>
+    <span class="intro-body">Hourly pool price, reserve margin, and Lerner index from Alberta's deregulated electricity market, comparing <strong>December</strong> (winter) and <strong>July</strong> (summer). Use the dropdown to switch views; the hour slider on the scatter chart filters to a single hour of day.</span>
   </div>
 
   <div class="controls">
@@ -46,7 +42,12 @@
         <input type="range" id="hourFilter" min="0" max="24" step="1" value="0">
       </div>
     </div>
-    <div id="heatmap-chart" class="chart-view"></div>
+    <div id="heatmap-chart" class="chart-view">
+      <div class="scatter-slider-bar">
+        <label id="hour-label-heatmap">Hour: <span id="hour-display-heatmap">All</span></label>
+        <input type="range" id="hourFilterHeatmap" min="0" max="24" step="1" value="0">
+      </div>
+    </div>
   </div>
   <div id="tooltip" class="tooltip"></div>
   
