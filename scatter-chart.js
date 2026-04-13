@@ -3,13 +3,13 @@ function drawReserveMarginScatter(data) {
 
   // Zone map (SVG y):
   //   28        — main title
-  //   52 / 67   — subtitle lines
-  //   90–125    — legend row (Regression | Lerner Index)
-  //   145       — panel titles "December" / "July"
-  //   165       — chart area begins
+  //   58 / 76   — subtitle lines
+  //   110–170   — legend row (Regression | Lerner Index)
+  //   185       — panel titles "December" / "July"
+  //   205       — chart area begins
   const totalWidth  = 1400;
-  const totalHeight = 690;
-  const margin      = { top: 165, right: 40, bottom: 90, left: 110 };
+  const totalHeight = 730;
+  const margin      = { top: 205, right: 40, bottom: 90, left: 110 };
   const innerWidth  = totalWidth  - margin.left - margin.right;  // 1250
   const innerHeight = totalHeight - margin.top  - margin.bottom; // 435
 
@@ -56,6 +56,9 @@ function drawReserveMarginScatter(data) {
 
   svg.append("text").call(subtitleStyle).attr("y", 58)
     .text("An inverse relationship emerges: lower reserve margins drive significantly higher prices, particularly in July — extreme price events are caused by scarcity, not randomness.");
+
+  svg.append("text").call(subtitleStyle).attr("y", 76)
+    .text("Dot colour encodes the Lerner Index — a higher Lerner Index (darker dot) indicates greater market power, meaning price deviates more from marginal cost.");
 
   // ── Parse ──────────────────────────────────────────────────────────────────
   const parsed = data.map(d => {
@@ -320,7 +323,7 @@ function drawReserveMarginScatter(data) {
   const CARD_W    = REG_W + COL_GAP + LERNER_W + CARD_PAD * 2;
   const CARD_H    = 60;
   const cardX     = innerWidth - CARD_W;
-  const cardY     = -90;
+  const cardY     = -95;
 
   // ── Lerner annotation — single note outside panels ────────────────────────
   const annNoteX = 0;
